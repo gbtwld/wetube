@@ -97,7 +97,7 @@ export const deleteVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    if (video.creator !== req.user.id) {
+    if (video.creator != req.user.id) {
       throw Error();
     } else {
       await Video.findOneAndRemove({ _id: id });
@@ -137,6 +137,21 @@ export const postAddComment = async (req, res) => {
       creator: user.id,
     });
     video.comments.push(newComment.id);
+    video.save();
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+export const postDelComment = async (req, res) => {
+  const {
+    params: { videoId, commentId },
+  } = req;
+  try {
+    const video = await Video.findById(videoId);
+    video.comments = video.comments.filter((comment) => comment != commentId);
     video.save();
   } catch (error) {
     res.status(400);
