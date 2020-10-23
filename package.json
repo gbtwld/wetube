@@ -5,9 +5,6 @@
   "main": "index.js",
   "author": "gbtwld",
   "license": "ISC",
-  "engines": {
-    "npm": "12.18.3"
-  },
   "dependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.11.6",
